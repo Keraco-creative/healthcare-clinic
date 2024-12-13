@@ -9,7 +9,7 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
+.env.sentry-build-plugin
 # testing
 /coverage
 
@@ -31,6 +31,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env.local
+
 
 # vercel
 .vercel
@@ -41,3 +43,4 @@ next-env.d.ts
 
 # Sentry Config File
 .env.sentry-build-plugin
+  
