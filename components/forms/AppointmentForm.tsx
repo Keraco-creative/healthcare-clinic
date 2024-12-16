@@ -28,7 +28,9 @@ export const AppointmentForm = ({
   type = "create",
   appointment,
   setOpen,
-}: {
+}:
+
+{
   userId: string;
   patientId: string;
   type: "create" | "schedule" | "cancel";
@@ -90,7 +92,8 @@ export const AppointmentForm = ({
             `/patients/${userId}/new-appointment/success?appointmentId=${newAppointment.$id}`,
           );
         }
-      } else {
+      } else 
+      {
         const appointmentToUpdate = {
           userId,
           appointmentId: appointment?.$id!,
@@ -101,10 +104,9 @@ export const AppointmentForm = ({
             cancellationReason: values.cancellationReason,
           },
           type,
-          timeZone:"America/Los_Angels",
+        
         };
-        
-        
+ 
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
         
 

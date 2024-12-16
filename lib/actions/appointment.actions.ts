@@ -15,14 +15,14 @@ import { formatDateTime, parseStringify } from "../utils";
 
 //  CREATE APPOINTMENT
 export const createAppointment = async (
-  appointment: CreateAppointmentParams,
+  appointment: CreateAppointmentParams
 ) => {
   try {
     const newAppointment = await databases.createDocument(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
       ID.unique(),
-      appointment,
+      appointment
     );
 
     revalidatePath("/admin");
@@ -33,59 +33,33 @@ export const createAppointment = async (
 };
 
 //  GET RECENT APPOINTMENTS
-// export const getRecentAppointmentList = async () => {
-//   try {
-//     const appointments = await databases.listDocuments(
-//       DATABASE_ID!,
-//       APPOINTMENT_COLLECTION_ID!,
-//       [Query.orderDesc("$createdAt")],
-//     );
-
-//     const initialCounts = {
-//       scheduledCount: 0,
-//       pendingCount: 0,
-//       cancelledCount: 0,
-//     };
-
-//     const counts = (appointments.documents as Appointment[]).reduce(
-//       (acc, appointment) => {
-//         switch (appointment.status) {
-//           case "scheduled":
-//             acc.scheduledCount++;
-//             break;
-//           case "pending":
-//             acc.pendingCount++;
-//             break;
-//           case "cancelled":
-//             acc.cancelledCount++;
-//             break;
-//         }
-//         return acc;
-//       },
-//       initialCounts,
-//     );
-
-//     const data = {
-//       totalCount: appointments.total,
-//       ...counts,
-//       documents: appointments.documents,
-//     };
-
-//     return parseStringify(data);
-//   } catch (error) {
-//     console.error(
-//       "An error occurred while retrieving the recent appointments:",
-//       error,
-//     );
-//   }
-// };
 export const getRecentAppointmentList = async () => {
   try {
     const appointments = await databases.listDocuments(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
-      [Query.orderDesc("$createdAt")],
+      [Query.orderDesc("$createdAt")]
     );
+
+    // const scheduledAppointments = (
+    //   appointments.documents as Appointment[]
+    // ).filter((appointment) => appointment.status === "scheduled");
+
+    // const pendingAppointments = (
+    //   appointments.documents as Appointment[]
+    // ).filter((appointment) => appointment.status === "pending");
+
+    // const cancelledAppointments = (
+    //   appointments.documents as Appointment[]
+    // ).filter((appointment) => appointment.status === "cancelled");
+
+    // const data = {
+    //   totalCount: appointments.total,
+    //   scheduledCount: scheduledAppointments.length,
+    //   pendingCount: pendingAppointments.length,
+    //   cancelledCount: cancelledAppointments.length,
+    //   documents: appointments.documents,
+    // };
 
     const initialCounts = {
       scheduledCount: 0,
@@ -108,7 +82,7 @@ export const getRecentAppointmentList = async () => {
         }
         return acc;
       },
-      initialCounts,
+      initialCounts
     );
 
     const data = {
@@ -121,16 +95,8 @@ export const getRecentAppointmentList = async () => {
   } catch (error) {
     console.error(
       "An error occurred while retrieving the recent appointments:",
-      error,
+      error
     );
-    // Return a default object with zero counts and empty documents array
-    return parseStringify({
-      totalCount: 0,
-      scheduledCount: 0,
-      pendingCount: 0,
-      cancelledCount: 0,
-      documents: [],
-    });
   }
 };
 
@@ -142,7 +108,7 @@ export const sendSMSNotification = async (userId: string, content: string) => {
       ID.unique(),
       content,
       [],
-      [userId],
+      [userId]
     );
     return parseStringify(message);
   } catch (error) {
@@ -157,6 +123,8 @@ export const updateAppointment = async ({
   timeZone,
   appointment,
   type,
+  adminName="Colonel K",
+
 }: UpdateAppointmentParams) => {
   try {
     // Update appointment to scheduled -> https://appwrite.io/docs/references/cloud/server-nodejs/databases#updateDocument
@@ -164,12 +132,12 @@ export const updateAppointment = async ({
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
       appointmentId,
-      appointment,
+      appointment
     );
 
     if (!updatedAppointment) throw Error;
 
-    const smsMessage = `Greetings from Brighton care Clinic. ${type === "schedule" ? `Your appointment is confirmed for ${formatDateTime(appointment.schedule!, timeZone).dateTime} with Dr. ${appointment.primaryPhysician}` : `We regret to inform that your appointment for ${formatDateTime(appointment.schedule!, timeZone).dateTime} is cancelled. Reason:  ${appointment.cancellationReason}`}.`;
+    const smsMessage = `Greetings from Brighton-Heatlcare. ${type === "schedule" ? `Your appointment is confirmed for ${formatDateTime(appointment.schedule!, timeZone).dateTime} with Dr. ${appointment.primaryPhysician}` : `We regret to inform that your appointment for ${formatDateTime(appointment.schedule!, timeZone).dateTime} is cancelled. Reason:  ${appointment.cancellationReason}`}. Cancellation processed by Admin: ${adminName}.`;
     await sendSMSNotification(userId, smsMessage);
 
     revalidatePath("/admin");
@@ -185,34 +153,14 @@ export const getAppointment = async (appointmentId: string) => {
     const appointment = await databases.getDocument(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
-      appointmentId,
+      appointmentId
     );
 
     return parseStringify(appointment);
   } catch (error) {
     console.error(
       "An error occurred while retrieving the existing patient:",
-      error,
+      error
     );
   }
 };
-
-// export const getRecentAppointment = async () => {
-//   try {
-//     console.log('Fetching appointments...');
-//     const appointments = await databases.listDocuments(
-//       DATABASE_ID!,
-//       APPOINTMENT_COLLECTION_ID!,
-//       [Query.orderDesc("$createdAt")],
-//     );
-//     console.log('Raw appointments data:', JSON.stringify(appointments, null, 2));
-
-//     // ... rest of the function
-//   } catch (error) {
-//     console.error(
-//       "An error occurred while retrieving the recent appointments:",
-//       error,
-//     );
-//     // ... return default object
-//   }
-// };

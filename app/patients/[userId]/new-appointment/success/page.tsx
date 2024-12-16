@@ -6,6 +6,11 @@ import { Doctors } from "@/constants";
 import { getAppointment } from "@/lib/actions/appointment.actions";
 import { formatDateTime } from "@/lib/utils";
 
+//Sentry files
+import * as Sentry from '@sentry/nextjs'
+import { getUser } from "@/lib/actions/patient.actions";
+
+
 const RequestSuccess = async ({
   searchParams,
   params: { userId },
@@ -17,6 +22,18 @@ const RequestSuccess = async ({
     (doctor) => doctor.name === appointment.primaryPhysician,
   );
 
+  const user = userId ? await getUser(userId) : null;
+
+   // Handle user being null
+   if (!user) {
+    // Redirect or display an error message
+    return <div>User not found!</div>;
+  }
+
+  // Log success metrics to Sentry
+  Sentry.metrics.set("user_view_new_appointment-success", user.name);
+
+  
   return (
     <div className=" flex h-screen max-h-screen px-[5%]">
       <div className="success-img">
@@ -36,6 +53,7 @@ const RequestSuccess = async ({
             height={300}
             width={280}
             alt="success"
+            unoptimized
           />
           <h2 className="header mb-6 max-w-[600px] text-center">
             Your <span className="text-green-500">appointment request</span> has

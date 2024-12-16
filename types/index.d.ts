@@ -54,4 +54,5 @@ declare type UpdateAppointmentParams = {
   timeZone: string;
   appointment: Appointment;
   type: string;
+  adminName:string;
 };
