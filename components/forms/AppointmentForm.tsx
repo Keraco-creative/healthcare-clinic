@@ -104,9 +104,10 @@ export const AppointmentForm = ({
             cancellationReason: values.cancellationReason,
           },
           type,
-        
+          adminName: "Colonel K",
         };
- 
+        
+        //@ts-ignore
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
         
 
@@ -130,7 +131,7 @@ export const AppointmentForm = ({
       buttonLabel = "Schedule Appointment";
       break;
     default:
-      buttonLabel = "Submit Apppointment";
+      buttonLabel = "Submit Appointment";
   }
 
   return (
