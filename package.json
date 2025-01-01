@@ -1,5 +1,5 @@
 {
-  "name": "carepulse",
+  "name": "brightonhospital",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,7 +19,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.1.0",
-    "@sentry/nextjs": "^8.44.0",
+    "@sentry/nextjs": "^8.47.0",
     "@shadcn/ui": "^0.0.4",
     "@tanstack/react-table": "^8.17.0",
     "autoprefixer": "^10.4.20",

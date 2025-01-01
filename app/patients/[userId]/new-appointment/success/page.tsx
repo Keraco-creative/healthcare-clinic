@@ -6,7 +6,7 @@ import { Doctors } from "@/constants";
 import { getAppointment } from "@/lib/actions/appointment.actions";
 import { formatDateTime } from "@/lib/utils";
 
-//Sentry files
+// Sentry files
 import * as Sentry from '@sentry/nextjs'
 import { getUser } from "@/lib/actions/patient.actions";
 
@@ -16,24 +16,36 @@ const RequestSuccess = async ({
   params: { userId },
 }: SearchParamProps) => {
   const appointmentId = (searchParams?.appointmentId as string) || "";
+  
+  // Fetch the appointment data
   const appointment = await getAppointment(appointmentId);
 
-  const doctor = Doctors.find(
-    (doctor) => doctor.name === appointment.primaryPhysician,
-  );
+  // 1. Check if the appointment object is valid (not undefined or null)
+  if (!appointment) {
+    return <div>Appointment not found!</div>; // If appointment doesn't exist, handle the error gracefully
+  }
 
+  // 2. Check if the primaryPhysician is available in the appointment data
+  const doctor = appointment.primaryPhysician
+    ? Doctors.find((doctor) => doctor.name === appointment.primaryPhysician)
+    : null; // If primaryPhysician is missing, set doctor to null
+
+  // 3. Check if the doctor was found
+  if (!doctor) {
+    return <div>Doctor information not available!</div>; // If doctor is not found, handle gracefully
+  }
+
+  // Fetch user data
   const user = userId ? await getUser(userId) : null;
 
-   // Handle user being null
-   if (!user) {
-    // Redirect or display an error message
-    return <div>User not found!</div>;
+  // 4. Handle user being null
+  if (!user) {
+    return <div>User not found!</div>; // If user is not found, return an error message
   }
 
   // Log success metrics to Sentry
   Sentry.metrics.set("user_view_new_appointment-success", user.name);
 
-  
   return (
     <div className=" flex h-screen max-h-screen px-[5%]">
       <div className="success-img">
@@ -65,13 +77,16 @@ const RequestSuccess = async ({
         <section className="request-details">
           <p>Requested appointment details: </p>
           <div className="flex items-center gap-3">
-            <Image
-              src={doctor?.image!}
-              alt="doctor"
-              width={100}
-              height={100}
-              className="size-6"
-            />
+            {/* Check if doctor has an image */}
+            {doctor?.image && (
+              <Image
+                src={doctor.image}
+                alt="doctor"
+                width={100}
+                height={100}
+                className="size-6"
+              />
+            )}
             <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
           </div>
           <div className="flex gap-2">
