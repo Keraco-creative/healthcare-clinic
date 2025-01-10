@@ -7,7 +7,7 @@ import { getAppointment } from "@/lib/actions/appointment.actions";
 import { formatDateTime } from "@/lib/utils";
 
 // Sentry files
-import * as Sentry from '@sentry/nextjs'
+// import * as Sentry from '@sentry/nextjs'
 import { getUser } from "@/lib/actions/patient.actions";
 
 
@@ -44,7 +44,7 @@ const RequestSuccess = async ({
   }
 
   // Log success metrics to Sentry
-  Sentry.metrics.set("user_view_new_appointment-success", user.name);
+  // Sentry.metrics.set("user_view_new_appointment-success", user.name);
 
   return (
     <div className=" flex h-screen max-h-screen px-[5%]">

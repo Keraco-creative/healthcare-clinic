@@ -4,15 +4,27 @@ import { redirect } from "next/navigation";
 import RegisterForm from "@/components/forms/RegisterForm";
 import { getPatient, getUser } from "@/lib/actions/patient.actions";
 
-import * as Sentry from '@sentry/nextjs'
+// import * as Sentry from '@sentry/nextjs'
 
-const Register = async ({ params: { userId } }: SearchParamProps) => {
-  const user = await getUser(userId);
-  const patient = await getPatient(userId);
+interface SearchParamProps {
+  params: {
+    userId: string;
+  };
+}
+
+// Make sure the params are destructured properly and used after they are awaited.
+const Register = async ({ params }: SearchParamProps) => {
+  const { userId } = params; // Destructuring the `userId` from `params`. This was previously inline with `params: { userId }`, but we split it for clarity.
+
+  const user = await getUser(userId); // Fetch user details using the userId.
+  const patient = await getPatient(userId); // Fetch patient details using the userId.
   
-  Sentry.metrics.set("user_view_register", user.name);
+  // Sentry.metrics.set("user_view_register", user.name);
 
-  if (patient) redirect(`/patients/${userId}/new-appointment`);
+  if (patient) {
+    // If a patient exists, redirect them to a new appointment page.
+    redirect(`/patients/${userId}/new-appointment`);
+  }
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -44,4 +56,3 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
 };
 
 export default Register;
-
