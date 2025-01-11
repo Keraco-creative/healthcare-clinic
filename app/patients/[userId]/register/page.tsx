@@ -12,15 +12,11 @@ interface SearchParamProps {
   };
 }
 
-// Update: Await params before using
 const Register = async ({ params }: SearchParamProps) => {
-  // Await the params
-  const { userId } = await params; // Ensure to await the params before destructuring
+  const { userId } = params; // No need to await here, just destructure.
 
   const user = await getUser(userId); // Fetch user details using the userId.
   const patient = await getPatient(userId); // Fetch patient details using the userId.
-  
-  // Sentry.metrics.set("user_view_register", user.name);
 
   if (patient) {
     // If a patient exists, redirect them to a new appointment page.
