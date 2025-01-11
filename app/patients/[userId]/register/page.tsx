@@ -13,12 +13,17 @@ interface SearchParamProps {
 }
 
 const Register = async ({ params }: SearchParamProps) => {
-  const { userId } = await params; 
+  // Await the params object if it's async
+  const resolvedParams = await params; // Await the params to ensure it's resolved
+  
+  // Now you can access the userId
+  const { userId } = resolvedParams;
 
-  const user = await getUser(userId); 
-  const patient = await getPatient(userId); 
+  const user = await getUser(userId); // Fetch user details using the userId.
+  const patient = await getPatient(userId); // Fetch patient details using the userId.
   
   if (patient) {
+    // If a patient exists, redirect them to a new appointment page.
     redirect(`/patients/${userId}/new-appointment`);
   }
 
