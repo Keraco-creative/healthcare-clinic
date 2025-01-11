@@ -13,13 +13,12 @@ interface SearchParamProps {
 }
 
 const Register = async ({ params }: SearchParamProps) => {
-  const { userId } = params; // No need to await here, just destructure.
+  const { userId } = await params; 
 
-  const user = await getUser(userId); // Fetch user details using the userId.
-  const patient = await getPatient(userId); // Fetch patient details using the userId.
-
+  const user = await getUser(userId); 
+  const patient = await getPatient(userId); 
+  
   if (patient) {
-    // If a patient exists, redirect them to a new appointment page.
     redirect(`/patients/${userId}/new-appointment`);
   }
 
