@@ -22,12 +22,15 @@
     "@sentry/nextjs": "^8.47.0",
     "@shadcn/ui": "^0.0.4",
     "@tanstack/react-table": "^8.17.0",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-tailwindcss": "^3.15.1",
     "fs": "^0.0.1-security",
     "input-otp": "^1.2.4",
@@ -49,15 +52,15 @@
     "zod": "^3.23.6"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/node": "^20.17.12",
+    "@types/react": "^18.3.18",
     "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^18",
     "eslint": "^8.57.1",
-    "eslint-config-next": "^14.2.3",
+    "eslint-config-next": "^15.1.4",
     "eslint-plugin-import": "^2.29.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
-    "typescript": "^5"
+    "typescript": "^5.7.3"
   }
 }
