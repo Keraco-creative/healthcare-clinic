@@ -12,9 +12,10 @@ interface SearchParamProps {
   };
 }
 
-// Make sure the params are destructured properly and used after they are awaited.
+// Update: Await params before using
 const Register = async ({ params }: SearchParamProps) => {
-  const { userId } = params; // Destructuring the `userId` from `params`. This was previously inline with `params: { userId }`, but we split it for clarity.
+  // Await the params
+  const { userId } = await params; // Ensure to await the params before destructuring
 
   const user = await getUser(userId); // Fetch user details using the userId.
   const patient = await getPatient(userId); // Fetch patient details using the userId.
