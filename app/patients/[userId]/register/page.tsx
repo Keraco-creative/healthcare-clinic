@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import RegisterForm from "@/components/forms/RegisterForm";
 import { getPatient, getUser } from "@/lib/actions/patient.actions";
 
-// import * as Sentry from '@sentry/nextjs'
+import * as Sentry from '@sentry/nextjs'
 
 interface SearchParamProps {
   params: {
@@ -22,6 +22,8 @@ const Register = async ({ params }: SearchParamProps) => {
   const user = await getUser(userId); // Fetch user details using the userId.
   const patient = await getPatient(userId); // Fetch patient details using the userId.
   
+  Sentry.metrics.set("user_view_register", user.name);
+
   if (patient) {
     // If a patient exists, redirect them to a new appointment page.
     redirect(`/patients/${userId}/new-appointment`);
@@ -41,7 +43,7 @@ const Register = async ({ params }: SearchParamProps) => {
 
           <RegisterForm user={user} />
 
-          <p className="copyright py-12">© 2024 Care Pulse Wellness Center</p>
+          <p className="copyright py-12">© 2024-2025 Care Pulse Wellness Center</p>
         </div>
       </section>
 
