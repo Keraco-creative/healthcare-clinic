@@ -1,102 +1,11 @@
-// import { type ClassValue, clsx } from "clsx";
-// import { twMerge } from "tailwind-merge";
-
-// export function cn(...inputs: ClassValue[]) {
-//   return twMerge(clsx(inputs));
-// }
-
-// // export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
-// export const parseStringify = (value: any) => {
-//   console.log("Value to parse:", value);
-//   if (value === undefined || value === null) {
-//     return value;
-//   }
-//   return JSON.parse(JSON.stringify(value));
-// };
-
-
-// export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
-
-// // FORMAT DATE TIME
-// export const formatDateTime = (dateString: Date | string, timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone) => {
-//   const dateTimeOptions: Intl.DateTimeFormatOptions = {
-//     // weekday: "short", // abbreviated weekday name (e.g., 'Mon')
-//     month: "short", // abbreviated month name (e.g., 'Oct')
-//     day: "numeric", // numeric day of the month (e.g., '25')
-//     year: "numeric", // numeric year (e.g., '2023')
-//     hour: "numeric", // numeric hour (e.g., '8')
-//     minute: "numeric", // numeric minute (e.g., '30')
-//     hour12: true, // use 12-hour clock (true) or 24-hour clock (false),
-//     timeZone: timeZone, // use the provided timezone
-//   };
-
-//   const dateDayOptions: Intl.DateTimeFormatOptions = {
-//     weekday: "short", // abbreviated weekday name (e.g., 'Mon')
-//     year: "numeric", // numeric year (e.g., '2023')
-//     month: "2-digit", // abbreviated month name (e.g., 'Oct')
-//     day: "2-digit", // numeric day of the month (e.g., '25')
-//     timeZone: timeZone, // use the provided timezone
-//   };
-
-//   const dateOptions: Intl.DateTimeFormatOptions = {
-//     month: "short", // abbreviated month name (e.g., 'Oct')
-//     year: "numeric", // numeric year (e.g., '2023')
-//     day: "numeric", // numeric day of the month (e.g., '25')
-//     timeZone: timeZone, // use the provided timezone
-//   };
-
-//   const timeOptions: Intl.DateTimeFormatOptions = {
-//     hour: "numeric", // numeric hour (e.g., '8')
-//     minute: "numeric", // numeric minute (e.g., '30')
-//     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
-//     timeZone: timeZone, // use the provided timezone
-//   };
-
-//   const formattedDateTime: string = new Date(dateString).toLocaleString(
-//     "en-US",
-//     dateTimeOptions
-//   );
-
-//   const formattedDateDay: string = new Date(dateString).toLocaleString(
-//     "en-US",
-//     dateDayOptions
-//   );
-
-//   const formattedDate: string = new Date(dateString).toLocaleString(
-//     "en-US",
-//     dateOptions
-//   );
-
-//   const formattedTime: string = new Date(dateString).toLocaleString(
-//     "en-US",
-//     timeOptions
-//   );
-
-//   return {
-//     dateTime: formattedDateTime,
-//     dateDay: formattedDateDay,
-//     dateOnly: formattedDate,
-//     timeOnly: formattedTime,
-//   };
-// };
-
-// export function encryptKey(passkey: string) {
-//   return btoa(passkey);
-// }
-
-// export function decryptKey(passkey: string) {
-//   return atob(passkey);
-// }
-
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-// Utility function to merge classes using clsx and tailwind-merge
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Function to parse and stringify values. Handles undefined or null values.
+// export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
 export const parseStringify = (value: any) => {
   console.log("Value to parse:", value);
   if (value === undefined || value === null) {
@@ -105,44 +14,42 @@ export const parseStringify = (value: any) => {
   return JSON.parse(JSON.stringify(value));
 };
 
-// Utility function to convert file to a URL (blob URL)
+
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
-// Format date-time based on the provided date string and timezone
-export const formatDateTime = (
-  dateString: Date | string,
-  timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone
-) => {
+// FORMAT DATE TIME
+export const formatDateTime = (dateString: Date | string, timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-    timeZone: timeZone,
+    // weekday: "short", // abbreviated weekday name (e.g., 'Mon')
+    month: "short", // abbreviated month name (e.g., 'Oct')
+    day: "numeric", // numeric day of the month (e.g., '25')
+    year: "numeric", // numeric year (e.g., '2023')
+    hour: "numeric", // numeric hour (e.g., '8')
+    minute: "numeric", // numeric minute (e.g., '30')
+    hour12: true, // use 12-hour clock (true) or 24-hour clock (false),
+    timeZone: timeZone, // use the provided timezone
   };
 
   const dateDayOptions: Intl.DateTimeFormatOptions = {
-    weekday: "short",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    timeZone: timeZone,
+    weekday: "short", // abbreviated weekday name (e.g., 'Mon')
+    year: "numeric", // numeric year (e.g., '2023')
+    month: "2-digit", // abbreviated month name (e.g., 'Oct')
+    day: "2-digit", // numeric day of the month (e.g., '25')
+    timeZone: timeZone, // use the provided timezone
   };
 
   const dateOptions: Intl.DateTimeFormatOptions = {
-    month: "short",
-    year: "numeric",
-    day: "numeric",
-    timeZone: timeZone,
+    month: "short", // abbreviated month name (e.g., 'Oct')
+    year: "numeric", // numeric year (e.g., '2023')
+    day: "numeric", // numeric day of the month (e.g., '25')
+    timeZone: timeZone, // use the provided timezone
   };
 
   const timeOptions: Intl.DateTimeFormatOptions = {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-    timeZone: timeZone,
+    hour: "numeric", // numeric hour (e.g., '8')
+    minute: "numeric", // numeric minute (e.g., '30')
+    hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
+    timeZone: timeZone, // use the provided timezone
   };
 
   const formattedDateTime: string = new Date(dateString).toLocaleString(
@@ -173,12 +80,10 @@ export const formatDateTime = (
   };
 };
 
-// Function to encrypt a string (passkey) using base64 encoding
 export function encryptKey(passkey: string) {
-  return btoa(passkey); // base64 encoding
+  return btoa(passkey);
 }
 
-// Function to decrypt a base64 encoded passkey
 export function decryptKey(passkey: string) {
-  return atob(passkey); // base64 decoding
+  return atob(passkey);
 }

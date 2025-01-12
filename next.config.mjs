@@ -6,7 +6,7 @@ const nextConfig = {};
 
 export default withSentryConfig(nextConfig, {
   org: "keraco-creative-agency",
-  project: "brighton-healthcare",
+  project: "care-pulse",
   silent: !process.env.CI,
   widenClientFileUpload: true,
   hideSourceMaps: true,

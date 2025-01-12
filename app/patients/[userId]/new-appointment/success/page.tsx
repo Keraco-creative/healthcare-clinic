@@ -106,7 +106,7 @@ const RequestSuccess = async ({
           </Link>
         </Button>
 
-        <p className="copyright">© 2024 Brighton Medical Care</p>
+        <p className="copyright">© 2024 Care Pulse Wellness Center</p>
       </div>
     </div>
   );

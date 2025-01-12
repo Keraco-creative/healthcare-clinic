@@ -28,7 +28,7 @@ const Appointment = async ({ params: { userId } }: SearchParamProps) => {
             type="create"
           />
 
-          <p className="copyright mt-10 py-12">© 2024 Brighton Medical Care</p>
+          <p className="copyright mt-10 py-12">© 2024 Care Pulse Wellness Center</p>
         </div>
       </section>
 
